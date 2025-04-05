@@ -2,7 +2,7 @@
   "name": "Todo List App",
   "short_name": "Todos",
   "description": "A simple and elegant todo list application with local storage",
-  "start_url": "/",
+  "start_url": "/todolist",
   "display": "standalone",
   "background_color": "#667eea",
   "theme_color": "#667eea",
