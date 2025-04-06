@@ -205,6 +205,10 @@ function cloneTodo(li) {
   const timestamp = clone.querySelector('.timestamp');
   timestamp.textContent = new Date().toLocaleString();
   
+  // Ensure the checkbox is unchecked
+  const checkbox = clone.querySelector('.form-check-input');
+  checkbox.checked = false;
+  
   // Reattach event listeners
   const taskText = clone.querySelector('.task-text');
   taskText.addEventListener('click', () => {
@@ -214,7 +218,7 @@ function cloneTodo(li) {
   clone.querySelector('.edit-btn').addEventListener('click', () => editTodo(clone, taskText));
   clone.querySelector('.clone-btn').addEventListener('click', () => cloneTodo(clone));
   clone.querySelector('.delete-btn').addEventListener('click', () => deleteTodo(clone));
-  clone.querySelector('.form-check-input').addEventListener('change', () => {
+  checkbox.addEventListener('change', () => {
     toggleSelectedButtons();
     saveTodos();
     updateStatusText();
@@ -261,6 +265,18 @@ function cloneSelectedTodos() {
   for (let i = selectedItems.length - 1; i >= 0; i--) {
     cloneTodo(selectedItems[i]);
   }
+  
+  // Uncheck all checkboxes after cloning
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = false;
+  });
+  
+  // Reset select all button state
+  isAllSelected = false;
+  const selectAllBtn = document.getElementById('selectAllBtn');
+  selectAllBtn.textContent = 'Select All';
+  selectAllBtn.classList.remove('btn-primary');
+  selectAllBtn.classList.add('btn-secondary');
   
   toggleSelectedButtons();
   saveTodos();
